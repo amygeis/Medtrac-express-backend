@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'medId',
         otherKey: 'timeId',
       }),
-      Medicine.hasOne(models.medpic, {
+      Medicine.hasOne(models.MedPic, {
         foreignKey: "rxcui"
       })
     }

@@ -31,7 +31,7 @@ router.post("/signup", (req, res) => {
             },
             process.env.JWT_SECRET,
             {
-              expiresIn: "30 days",
+              expiresIn: "60m",
             }
           );
           console.log(token);
@@ -64,7 +64,7 @@ router.post("/login", (req, res) => {
             },
             process.env.JWT_SECRET,
             {
-              expiresIn: "30 days",
+              expiresIn: "60m",
             }
           );
           console.log(token);
