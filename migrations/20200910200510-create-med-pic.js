@@ -15,6 +15,9 @@ module.exports = {
       imgname: {
         type: Sequelize.STRING
       },
+      imgURL: {
+        type:Sequelize.STRING
+      },
       img: {
         type: Sequelize.BLOB
       },

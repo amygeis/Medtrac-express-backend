@@ -6,6 +6,14 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const createError = require("http-errors");
+const corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200
+}
+app.use(cors(corsOptions));
+app.use(cookieParser());
+app.use(express.json());
+app.use(methodOverride("_method"));
 
 // pillboxkeyid:58d2uwyiuxyy047ww6l592bdp
 // pillboxkeysecrect:3vt0sdiglsc1wa3c0ch8lj2mvficq6dumn39nz4rcsinfigusz
@@ -14,7 +22,10 @@ const createError = require("http-errors");
 
 
 const verifyToken = (req, res, next) => {
+  console.log("cookie:", req.cookies)
   let token = req.cookies.jwt;
+  token=req.headers.authorization
+  console.log(token)
   // COOKIE PARSER GIVES YOU A .cookies PROP, WE NAMED OUR TOKEN jwt
   console.log("Cookies: ", req.cookies.jwt);
 
@@ -29,10 +40,7 @@ const verifyToken = (req, res, next) => {
     next();
   });
 };
-app.use(cors());
-app.use(cookieParser());
-app.use(express.json());
-app.use(methodOverride("_method"));
+
 
 // HOMEPAGE
 app.get("/", (req, res) => {
@@ -40,7 +48,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", require("./controllers/authController.js"));
-app.use("/api/users", require("./controllers/usersController.js"));
+app.use("/api/users", verifyToken, require("./controllers/usersController.js"));
+app.use("/api/medicine", verifyToken, require("./controllers/medicineController.js"))
 
 app.listen(process.env.PORT, () => {
   console.log("Nodemon listening");

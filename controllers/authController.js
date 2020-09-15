@@ -9,7 +9,7 @@ const UserModel = require("../models").User;
 // SIGN OUT ROUTE
 router.get("/logout", (req, res) => {
   res.clearCookie("jwt");
-  res.redirect("/");
+  return res.status(200);
 });
 
 // POST - CREATE NEW USER FROM SIGNUP
@@ -37,7 +37,7 @@ router.post("/signup", (req, res) => {
           console.log(token);
           // res.cookie("jwt", token); // SEND A NEW COOKIE TO THE BROWSER TO STORE TOKEN
           // res.redirect(`/users/profile/${newUser.id}`);
-          res.json({ token });
+          res.json({ token, newUser});
         })
         .catch((err) => {
           console.log(err);
@@ -68,9 +68,9 @@ router.post("/login", (req, res) => {
             }
           );
           console.log(token);
-          // res.cookie("jwt", token); // SEND A NEW COOKIE TO THE BROWSER TO STORE TOKEN
+          res.cookie("jwt", token); // SEND A NEW COOKIE TO THE BROWSER TO STORE TOKEN
+          res.json({ token, foundUser });
           // res.redirect(`/users/profile/${foundUser.id}`);
-          res.json({ token });
         } else {
           return res.sendStatus(400);
         }

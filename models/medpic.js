@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   MedPic.init({
     rxcui: DataTypes.INTEGER,
     imgname: DataTypes.STRING,
+    imgURL: DataTypes.STRING,
     img: DataTypes.BLOB
   }, {
     sequelize,
