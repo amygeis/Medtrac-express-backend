@@ -10,6 +10,7 @@ const corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200
 }
+const Medicine = require("./models").Medicine;
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
@@ -45,6 +46,14 @@ const verifyToken = (req, res, next) => {
 // HOMEPAGE
 app.get("/", (req, res) => {
   res.json({ message: "express api app is working" });
+});
+
+app.get("/api/getmedicine", (req,res)=>{
+  Medicine.findAll({
+    order: ['name']
+}).then((medicines) =>{
+        res.json({medicines})    
+});
 });
 
 app.use("/api/auth", require("./controllers/authController.js"));
