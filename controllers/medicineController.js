@@ -4,7 +4,8 @@ const Medicine = require("../models").Medicine;
 const User=require("../models").User;
 
 //POST for new/create
-router.post('/', (req,res) => {
+router.post("/", (req,res) => {
+    console.log(req.body)
     Medicine.create(req.body).then((newMedicine) => {
        res.json({newMedicine}); 
     });

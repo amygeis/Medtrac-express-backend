@@ -25,7 +25,6 @@ router.get("/profile/:id", async (req, res) => {
 router.put("/profile/:id", async (req, res) => {
   let updatedUser = await UserModel.update(req.body,{
     where: {id: req.params.id},
-    returning: true,
   });
   res.json(updatedUser);
 })

@@ -22,12 +22,12 @@ app.use(methodOverride("_method"));
 
 
 const verifyToken = (req, res, next) => {
-  console.log("cookie:", req.cookies)
-  let token = req.cookies.jwt;
-  token=req.headers.authorization
-  console.log(token)
+  // console.log("cookie:", req.cookies)
+  // let token = req.cookies.jwt;
+  let token=req.headers.authorization
+  console.log(req.headers)
   // COOKIE PARSER GIVES YOU A .cookies PROP, WE NAMED OUR TOKEN jwt
-  console.log("Cookies: ", req.cookies.jwt);
+  //console.log("Cookies: ", req.cookies.jwt);
 
   jwt.verify(token, process.env.JWT_SECRET, (err, decodedUser) => {
     if (err || !decodedUser) {
